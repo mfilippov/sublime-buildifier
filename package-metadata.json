@@ -1,0 +1,9 @@
+{
+    "name": "Buildifier",
+    "description": "Format and lint Bazel files (BUILD, WORKSPACE, *.bzl) with buildifier",
+    "author": "Mikhail Filippov",
+    "url": "https://github.com/mfilippov/sublime-buildifier",
+    "version": "1.0.0",
+    "sublime_text": ">=4107",
+    "platforms": ["*"]
+}

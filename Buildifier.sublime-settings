@@ -1,0 +1,74 @@
+{
+    // Path to buildifier executable.
+    // If null, uses the downloaded buildifier or searches PATH.
+    "buildifier_path": null,
+
+    // Additional arguments to pass to buildifier.
+    "buildifier_args": [],
+
+    // Timeout for buildifier commands in milliseconds.
+    "buildifier_timeout": 5000,
+
+    // Action on file save:
+    //   "off"         - Do nothing
+    //   "format"      - Format file only
+    //   "lint"        - Show lint warnings only
+    //   "format+lint" - Format file and show lint warnings
+    "on_save": "format",
+
+    // Strategy for format-on-save:
+    //   "pre_save_blocking" - Format synchronously before save (file saved already formatted)
+    //   "post_save_resave"  - Format after save and re-save (async, may cause double save)
+    "format_on_save_strategy": "pre_save_blocking",
+
+    // Working directory mode for running buildifier:
+    //   "config_dir"   - Directory containing .buildifier.json (walks up tree)
+    //   "file_dir"     - Directory of the current file
+    //   "project_root" - First folder in the project
+    //   "custom"       - Use custom_working_dir value
+    "working_dir_mode": "config_dir",
+
+    // Custom working directory (used when working_dir_mode is "custom").
+    "custom_working_dir": null,
+
+    // Additional file patterns to recognize as Bazel files.
+    // Map from glob pattern to file type ("build", "workspace", "bzl", "module", "default").
+    // Example: {"*.star": "default", "DEPS": "build"}
+    "additional_file_patterns": {},
+
+    // Warning categories to enable/disable.
+    //   null  - Use buildifier defaults
+    //   "all" - Enable all warnings
+    //   "-positional-args,+unsorted-dict-items" - Enable/disable specific categories
+    "warnings": null,
+
+    // Automatically download buildifier if not found.
+    "auto_download": true,
+
+    // Auto-update behavior:
+    //   "never"  - Never auto-update
+    //   "prompt" - Prompt before updating
+    //   "always" - Always update automatically
+    "auto_update": "prompt",
+
+    // Verify SHA256 checksum when downloading buildifier.
+    // Uses digest from GitHub API metadata.
+    "verify_sha256": true,
+
+    // Show lint warnings in output panel.
+    "show_warnings_in_panel": true,
+
+    // Highlight lint warnings in editor with squiggly underlines.
+    "highlight_warnings_in_editor": true,
+
+    // Scope for warning highlights (affects color based on theme).
+    "warning_scope": "markup.warning",
+
+    // Scope for error highlights (affects color based on theme).
+    "error_scope": "markup.error",
+
+    // Color for error/warning annotations (text at end of line).
+    // If null, uses color from error_scope in current theme.
+    // Can be a color name or hex value like "#FF0000".
+    "annotation_color": null
+}

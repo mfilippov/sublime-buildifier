@@ -1,0 +1,32 @@
+[
+    {
+        "caption": "Buildifier: Format File",
+        "command": "buildifier_format"
+    },
+    {
+        "caption": "Buildifier: Lint File",
+        "command": "buildifier_lint"
+    },
+    {
+        "caption": "Buildifier: Format and Fix",
+        "command": "buildifier_format_and_fix"
+    },
+    {
+        "caption": "Buildifier: Next Warning",
+        "command": "buildifier_jump_to_warning",
+        "args": {"direction": "next"}
+    },
+    {
+        "caption": "Buildifier: Previous Warning",
+        "command": "buildifier_jump_to_warning",
+        "args": {"direction": "previous"}
+    },
+    {
+        "caption": "Buildifier: Download/Update",
+        "command": "buildifier_download"
+    },
+    {
+        "caption": "Buildifier: Show Info",
+        "command": "buildifier_show_info"
+    }
+]

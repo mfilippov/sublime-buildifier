@@ -1,0 +1,38 @@
+[
+    {
+        "filename": "BUILD",
+        "formatted": true,
+        "valid": true,
+        "success": true,
+        "warnings": [
+            {
+                "start": {
+                    "line": 10,
+                    "column": 1
+                },
+                "end": {
+                    "line": 10,
+                    "column": 15
+                },
+                "category": "load",
+                "message": "Load statement should be at the top of the file",
+                "url": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#load",
+                "actionable": true
+            },
+            {
+                "start": {
+                    "line": 25,
+                    "column": 5
+                },
+                "end": {
+                    "line": 25,
+                    "column": 12
+                },
+                "category": "unused-variable",
+                "message": "Variable \"foo\" is unused",
+                "url": "https://github.com/bazelbuild/buildtools/blob/master/WARNINGS.md#unused-variable",
+                "actionable": false
+            }
+        ]
+    }
+]
