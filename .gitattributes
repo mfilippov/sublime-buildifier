@@ -1,0 +1,7 @@
+# Exclude development and testing files from Package Control releases
+.gitattributes export-ignore
+.gitignore export-ignore
+.python-version export-ignore
+pyproject.toml export-ignore
+uv.lock export-ignore
+tests/ export-ignore
