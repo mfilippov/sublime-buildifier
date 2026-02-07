@@ -8,7 +8,6 @@ making it testable with pytest outside of Sublime Text environment.
 import hashlib
 import json
 import os
-import platform
 import re
 import sys
 from typing import Any, Dict, List, Optional, Tuple
@@ -100,9 +99,13 @@ def _match_glob_pattern(filename: str, pattern: str) -> bool:
     return bool(re.match(regex_pattern, filename))
 
 
-def get_platform_info() -> Tuple[str, str]:
+def get_platform_info(system: Optional[str] = None, machine: Optional[str] = None) -> Tuple[str, str]:
     """
     Get the current platform information for buildifier asset selection.
+
+    Args:
+        system: Override for sys.platform (e.g., "darwin", "linux", "win32")
+        machine: Override for machine architecture (e.g., "x86_64", "arm64", "AMD64")
 
     Returns:
         Tuple of (os_name, arch) where:
@@ -112,8 +115,11 @@ def get_platform_info() -> Tuple[str, str]:
     Raises:
         ValueError: If the platform is not supported
     """
-    system = sys.platform
-    machine = platform.machine()
+    if system is None:
+        system = sys.platform
+    if machine is None:
+        import platform as _platform
+        machine = _platform.machine()
 
     # Determine OS
     if system == "darwin":
