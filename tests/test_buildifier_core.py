@@ -2,15 +2,10 @@
 
 import hashlib
 import json
-import sys
 from pathlib import Path
 from typing import Optional
-from unittest.mock import patch
 
 import pytest
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import buildifier_core as core
 
@@ -124,22 +119,17 @@ class TestGetPlatformInfo:
     def test_supported_platforms(
         self, sys_platform: str, machine: str, expected_os: str, expected_arch: str
     ) -> None:
-        with patch("sys.platform", sys_platform):
-            with patch("platform.machine", return_value=machine):
-                os_name, arch = core.get_platform_info()
-                assert os_name == expected_os
-                assert arch == expected_arch
+        os_name, arch = core.get_platform_info(system=sys_platform, machine=machine)
+        assert os_name == expected_os
+        assert arch == expected_arch
 
     def test_unsupported_platform(self) -> None:
-        with patch("sys.platform", "freebsd"):
-            with pytest.raises(ValueError, match="Unsupported platform"):
-                core.get_platform_info()
+        with pytest.raises(ValueError, match="Unsupported platform"):
+            core.get_platform_info(system="freebsd", machine="x86_64")
 
     def test_unsupported_architecture(self) -> None:
-        with patch("sys.platform", "linux"):
-            with patch("platform.machine", return_value="i386"):
-                with pytest.raises(ValueError, match="Unsupported architecture"):
-                    core.get_platform_info()
+        with pytest.raises(ValueError, match="Unsupported architecture"):
+            core.get_platform_info(system="linux", machine="i386")
 
 
 class TestGetAssetName:

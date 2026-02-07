@@ -25,6 +25,44 @@ from . import buildifier_core as core
 _save_guard: Dict[int, bool] = {}
 
 
+def get_platform_info() -> Tuple[str, str]:
+    """
+    Get the current platform information using Sublime Text APIs.
+
+    Returns:
+        Tuple of (os_name, arch) where:
+            os_name: "darwin", "linux", or "windows"
+            arch: "amd64" or "arm64"
+
+    Raises:
+        ValueError: If the platform is not supported
+    """
+    platform = sublime.platform()
+    arch_str = sublime.arch()
+
+    # Map Sublime platform names to buildifier asset names
+    if platform == "osx":
+        os_name = "darwin"
+    elif platform == "linux":
+        os_name = "linux"
+    elif platform == "windows":
+        os_name = "windows"
+    else:
+        raise ValueError(f"Unsupported platform: {platform}")
+
+    # Map Sublime arch names to buildifier arch names
+    if arch_str == "x64":
+        arch = "amd64"
+    elif arch_str == "arm64":
+        arch = "arm64"
+    elif arch_str == "x32":
+        raise ValueError("32-bit architecture is not supported by buildifier")
+    else:
+        raise ValueError(f"Unsupported architecture: {arch_str}")
+
+    return os_name, arch
+
+
 def plugin_loaded() -> None:
     """Called when the plugin is loaded."""
     # Ensure cache directory exists
@@ -64,7 +102,7 @@ def get_buildifier_path() -> Optional[str]:
 
     # Check for downloaded buildifier
     try:
-        os_name, arch = core.get_platform_info()
+        os_name, arch = get_platform_info()
         asset_name = core.get_asset_name(os_name, arch)
         cached_path = os.path.join(get_cache_dir(), asset_name)
         if os.path.isfile(cached_path):
@@ -600,7 +638,7 @@ class BuildifierDownloadCommand(sublime_plugin.WindowCommand):
             sublime.set_timeout(lambda: sublime.error_message(msg), 0)
 
         try:
-            os_name, arch = core.get_platform_info()
+            os_name, arch = get_platform_info()
         except ValueError as e:
             error(f"Buildifier: {e}")
             return
@@ -737,7 +775,7 @@ class BuildifierShowInfoCommand(sublime_plugin.TextCommand):
 
         # Platform info
         try:
-            os_name, arch = core.get_platform_info()
+            os_name, arch = get_platform_info()
             lines.append(f"Platform: {os_name}-{arch}\n")
             lines.append(f"Asset name: {core.get_asset_name(os_name, arch)}\n")
         except ValueError as e:
