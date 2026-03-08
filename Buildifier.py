@@ -191,7 +191,7 @@ def get_file_type(view: sublime.View) -> Optional[str]:
 
 def is_bazel_file(view: sublime.View) -> bool:
     """Check if the current view is a Bazel file."""
-    return get_file_type(view) is not None
+    return view.match_selector(0, "source.bazel")
 
 
 def ensure_buildifier(window: Optional[sublime.Window] = None) -> bool:
