@@ -29,6 +29,9 @@ A Sublime Text plugin for formatting and linting Bazel files using [buildifier](
 2. Select `Package Control: Install Package`
 3. Search for `Buildifier` and install
 
+For syntax highlighting, install the [BazelSyntax](https://packagecontrol.io/packages/BazelSyntax) package.
+Without it, the plugin falls back to filename-based detection.
+
 ### Manual Installation
 
 1. Clone this repository into your Sublime Text `Packages` directory:
